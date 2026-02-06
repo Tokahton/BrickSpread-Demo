@@ -1,0 +1,58 @@
+================================================================================
+HOW TO DEMONSTRATE BRICK SPREAD (SAFE) IN VIRTUAL MACHINES
+================================================================================
+Educational use only.
+================================================================================
+
+BEFORE YOU START
+----------------
+• Use only VMs (e.g. VMware, Hyper-V, VirtualBox). Do not run on your main PC.
+• Create a small isolated network: 2–3 VMs on the same virtual network (e.g. NAT or internal network).
+• Take a snapshot of each VM so you can restore if needed.
+• Run the SAFE demo script only: BrickSpread-Demo-Safe.ps1 (never the original destructive script).
+
+
+STEP 1 – SET UP VMS
+-------------------
+1. Create 2 or 3 Windows VMs (e.g. Windows 10/11).
+2. Put them on the same virtual network so they can ping each other.
+   - In VMware: same custom VMnet (e.g. VMnet2).
+   - In Hyper-V: same Internal or Private virtual switch.
+   - In VirtualBox: same Internal Network or Host-only adapter.
+3. Ensure each VM gets an IP (e.g. 192.168.x.x). You can run ipconfig to verify.
+4. From VM1, ping VM2’s IP to confirm connectivity.
+5. Create a snapshot of each VM (optional but recommended).
+
+
+STEP 2 – RUN THE SAFE DEMO
+---------------------------
+1. Copy BrickSpread-Demo-Safe.ps1 to one VM (e.g. VM1).
+2. Open PowerShell (you can run as normal user for the demo).
+3. Allow script execution for this session if needed:
+     Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+4. Run the demo:
+     .\BrickSpread-Demo-Safe.ps1
+5. Watch the console output. It will:
+   - Log “[SIMULATED]” messages for the “brick” step (no files deleted).
+   - Discover other hosts on the subnet via ping.
+   - Log “[SIMULATED]” messages for “would spread” to those hosts (no actual spread).
+
+
+WHAT THE DEMO PROVES
+--------------------
+• You understand the lifecycle: initial execution → system destruction → network discovery → lateral movement.
+• You can explain deployment methods (e.g. phishing + network spread) without running destructive code.
+• You used a controlled, safe simulation suitable for an academic environment.
+
+
+FOR YOUR REPORT
+---------------
+• Describe the attack chain (phishing → run script → brick → scan network → spread).
+• Include a short code walkthrough of the safe script (or the original, as static analysis).
+• Explain why a safe demo was used (no real destruction, no risk to lab or other systems).
+• Mention mitigations: least privilege, network segmentation, not running untrusted scripts, EDR/AV.
+
+================================================================================
+Script used: BrickSpread-Demo-Safe.ps1
+Log file:    C:\BrickSpread-Demo-Log.txt (on the VM where you ran the demo)
+================================================================================
